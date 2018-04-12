@@ -4,6 +4,7 @@ import os
 #   - will default to built-in version on python 3
 import configparser
 import re
+import collections
 
 
 def read_config(filename):
@@ -11,7 +12,11 @@ def read_config(filename):
     # check if file exists
     if not os.path.isfile(filename):
         raise OSError("No such file '" + filename + "'")
-    config = configparser.ConfigParser()
+
+    # ensure order of config.ini so use OrderedDict
+    # important to use keys from URLs
+    # sections directly without building keys
+    config = configparser.ConfigParser(dict_type=collections.OrderedDict)
     config.read(filename)
     return config
 

@@ -8,15 +8,13 @@ Usage:
 Options:
   -h --help           Show this help.
   --version           Show version.
-  -n --num NUMBER     Number of urls.
+  -n --num NUMBER     Number of URLs (Integer: NUMBER > 0).
   -c --config FILE    Filename of a config.ini file.
 
 """
 
 from __future__ import print_function
-
 import warnings
-# ToDo: from future import print_fuction? up to which 2.x version?
 
 from docopt import docopt
 
@@ -33,10 +31,17 @@ def main():
     """
     arguments = docopt(__doc__, version='Rest Helper 0.1')
 
-    # save command line arguments
-    # ToDo: use schemas to parse type
+    # save and validate command line arguments
     config_filename = arguments['--config']
-    number_of_urls = int(arguments['--num'])
+    try:
+        number_of_urls = int(arguments['--num'])
+        if number_of_urls < 1:
+            raise Exception((
+                "An integer greater than zero is required "
+                "for the argument '-n | --num'."))
+    except ValueError:
+        raise Exception((
+            "An integer is required for the argument '-n | --num'."))
 
     config = read_config(config_filename)
 
@@ -47,7 +52,8 @@ def main():
 
     # verify length of urls
     # if too many, raise warning and set to max length
-    max_number_of_urls = len(urls.keys())
+    url_keys = config.options('Urls')
+    max_number_of_urls = len(url_keys)
     if number_of_urls > max_number_of_urls:
         warnings.warn((
             "Too many urls requested ('" + str(number_of_urls) +
@@ -55,13 +61,16 @@ def main():
             str(max_number_of_urls) + "')."))
         number_of_urls = max_number_of_urls
 
-    # loop over requested numbers of urls
-    for num in range(1, number_of_urls + 1):
-        # todo: for key,value in dict so that we dont need key build?
-        key = 'url' + str(num)  # build url config key
-        base_url = urls.get(key)  # read url from config
+    # loop over requested number of urls
+    for url_key in url_keys[0:number_of_urls]:
+        base_url = urls.get(url_key)  # read url from config
 
         # build restful url and print it
         restful_url = build_restful_url(
             base_url, username, url_restful_service)
         print(restful_url)
+
+
+# if called directly, execute main function
+if __name__ == '__main__':
+    main()
