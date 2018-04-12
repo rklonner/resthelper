@@ -1,0 +1,2 @@
+include README.rst
+include resthelper/etc/example_config.ini
