@@ -1,5 +1,5 @@
 import os
-# python 2/3 support:
+# configparser python 2/3 support:
 #   - configpaser will import backport on python 2
 #   - will default to built-in version on python 3
 import configparser
