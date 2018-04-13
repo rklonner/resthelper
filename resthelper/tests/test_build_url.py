@@ -3,7 +3,7 @@ import unittest
 from resthelper.utils import build_restful_url
 
 
-class TestBuidlUrl(unittest.TestCase):
+class TestBuildUrl(unittest.TestCase):
     def test_is_restful_https_url(self):
         url = build_restful_url('https://jenkins1.tttech.com',
                                 'testuser', '/rest/1.0/request')
