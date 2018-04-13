@@ -1,14 +1,16 @@
-from unittest import TestCase
+import unittest
 
 import docopt
 
-from resthelper.rest_helper import main
+from resthelper import rest_helper
 
-class TestConsole(TestCase):
+
+class TestConsole(unittest.TestCase):
     def test_command_line_script_main(self):
         # call without the right command line arguments that are used by
         # docopt should raise DocoptExit with help message
-        self.assertRaises(docopt.DocoptExit, main)
+        self.assertRaises(docopt.DocoptExit, rest_helper.main)
+
 
 if __name__ == '__main__':
     unittest.main()

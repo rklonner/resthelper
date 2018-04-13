@@ -1,3 +1,5 @@
+"""Setup for installing Rest Helper"""
+
 from setuptools import setup
 
 
@@ -28,7 +30,7 @@ setup(name='resthelper',
           'docopt>=0.6.2'
       ],
       entry_points={
-        'console_scripts': ['rest_helper=resthelper.rest_helper:main']
+          'console_scripts': ['rest_helper=resthelper.rest_helper:main']
       },
       test_suite='nose.collector',
       tests_require=['nose'],
