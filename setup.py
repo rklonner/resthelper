@@ -1,6 +1,6 @@
 """Setup for installing Rest Helper"""
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(name='resthelper',
@@ -24,7 +24,7 @@ setup(name='resthelper',
       author='Robert Klnner',
       author_email='r.klonner@gmx.at',
       license='MIT',
-      packages=['resthelper'],
+      packages=find_packages(),
       install_requires=[
           'configparser>=3.5.0',
           'docopt>=0.6.2'
